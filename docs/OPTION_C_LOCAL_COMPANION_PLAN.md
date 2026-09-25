@@ -1,4 +1,4 @@
-# Option C — Local Companion Application: Design Plan
+Local Companion Application: Design Plan
 
 > Status: **PLAN (not implemented)** — per the agreed roadmap, A (Groq fallback) and B (LM
 > Studio tunnel) ship first; this document is the plan for C so it can be reviewed and
