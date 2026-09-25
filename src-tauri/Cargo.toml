@@ -1,15 +1,15 @@
 [package]
 name = "amta-companion"
-version = "0.1.0"
+version = "0.1.1"
 description = "AMTA Lexicography Assistant — local companion app (Option C)"
 authors = ["Waleed Mandour"]
 edition = "2021"
-rust-version = "1.77"
+rust-version = "1.77.2"  # = the MSRV of the tauri 2.x line (crates.io, 2026-09)
 
 [build-dependencies]
 tauri-build = { version = "2", features = [] }
 
 [dependencies]
-serde = { version = "1", features = ["derive"] }
-serde_json = "1"
+serde = { version = "1", features = ["derive"] }  # used from M1 (HTTP bridge payloads)
+serde_json = "1"                                  # used from M1
 tauri = { version = "2", features = [] }

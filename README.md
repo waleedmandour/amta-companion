@@ -42,16 +42,19 @@ pnpm tauri dev          # dev window with hot reload
 pnpm tauri build        # local release build
 ```
 
-Requirements: Rust stable, Node 20 + pnpm; Linux additionally needs
-`libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev patchelf`.
+Requirements: Rust stable (1.77.2+), Node 22 + pnpm (Node 20 is EOL since 2026-04-30);
+Linux additionally needs
+`libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev patchelf libfuse2`.
 
 ## Release flow
 
-Push a tag → three OS runners build in parallel → a **draft** GitHub Release appears
-with all installers. QA it (see repo plan §9), then press **Publish**.
+Bump the version, commit, push a tag → three OS runners build in parallel → a **draft**
+GitHub Release appears with all installers. QA it (see repo plan §9), then press **Publish**.
 
 ```bash
-git tag v0.1.1 && git push origin v0.1.1
+python3 scripts/bump.py 0.1.2   # updates package.json + tauri.conf.json + Cargo.toml
+git commit -am "chore(release): v0.1.2"
+git tag v0.1.2 && git push origin main v0.1.2
 ```
 
 ## Development transparency (AI assistance)

@@ -17,8 +17,9 @@
       </header>
 
       <section class="card">
-        <h2>v0.1.0 — Bootstrap (M0)</h2>
+        <h2>v0.1.1 — Bootstrap (M0)</h2>
         <p>This first release proves the cross-platform shell and the release pipeline:</p>
+        <p class="ipc-status" id="ipc-status">⏳ IPC: checking…</p>
         <ul>
           <li>✅ Desktop shell builds on Windows (.msi/.exe), macOS (.dmg, universal) and Linux (.AppImage/.deb/.rpm)</li>
           <li>✅ Tag-driven release pipeline (GitHub Actions) + draft-release QA gate</li>
@@ -38,5 +39,6 @@
         </p>
       </section>
     </main>
+    <script type="module" src="/ipc-status.js"></script>
   </body>
 </html>

@@ -1,8 +1,9 @@
 // Prevents an extra console window on Windows in release builds.
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-/// Health probe. In M1 the local OpenAI-compatible HTTP API lands next to
-/// this; the command already proves the IPC + build pipeline end to end.
+/// Health probe. The UI invokes this via the injected `__TAURI__` global
+/// (see ipc-status.js), proving the IPC + build pipeline end to end.
+/// In M1 the local OpenAI-compatible HTTP API lands next to this.
 #[tauri::command]
 fn ping() -> String {
     format!(

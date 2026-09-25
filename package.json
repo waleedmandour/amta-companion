@@ -1,8 +1,9 @@
 {
   "name": "amta-companion",
   "private": true,
-  "version": "0.1.0",
-  "description": "AMTA Lexicography Assistant — local companion app (Option C)",
+  "type": "module",
+  "version": "0.1.1",
+  "description": "AMTA Lexicography Assistant \u2014 local companion app (Option C)",
   "packageManager": "pnpm@9.12.0",
   "scripts": {
     "dev": "vite",
