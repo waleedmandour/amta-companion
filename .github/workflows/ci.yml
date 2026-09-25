@@ -19,8 +19,9 @@ jobs:
 
       - uses: pnpm/action-setup@v4        # reads packageManager from package.json
 
+      # no cache: pnpm here — requires a committed pnpm-lock.yaml (add at M1)
       - uses: actions/setup-node@v4
-        with: { node-version: 20, cache: pnpm }
+        with: { node-version: 20 }
 
       - uses: dtolnay/rust-toolchain@stable
         with: { components: clippy, rustfmt }
