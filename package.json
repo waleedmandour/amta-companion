@@ -2,7 +2,7 @@
   "name": "amta-companion",
   "private": true,
   "type": "module",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "AMTA Lexicography Assistant \u2014 local companion app (Option C)",
   "packageManager": "pnpm@9.12.0",
   "scripts": {

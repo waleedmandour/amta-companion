@@ -1,6 +1,6 @@
 [package]
 name = "amta-companion"
-version = "0.1.1"
+version = "0.1.2"
 description = "AMTA Lexicography Assistant — local companion app (Option C)"
 authors = ["Waleed Mandour"]
 edition = "2021"
