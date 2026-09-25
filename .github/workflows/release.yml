@@ -30,6 +30,7 @@ jobs:
           targets: ${{ matrix.os == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
 
       - uses: Swatinem/rust-cache@v2
+        with: { workspaces: src-tauri }   # Cargo.toml lives in src-tauri, not repo root
 
       - name: Install Linux system deps
         if: runner.os == 'Linux'
@@ -56,6 +57,9 @@ jobs:
       #       --team-id "${{ secrets.APPLE_TEAM_ID }}"
       # Windows: add AZURE_* (Trusted Signing) envs to the tauri-action step below.
       # ─────────────────────────────────────────────────────────────────────
+
+      - name: Install frontend deps
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build + attach installers to the draft release
         uses: tauri-apps/tauri-action@v0

@@ -27,6 +27,7 @@ jobs:
         with: { components: clippy, rustfmt }
 
       - uses: Swatinem/rust-cache@v2
+        with: { workspaces: src-tauri }   # Cargo.toml lives in src-tauri, not repo root
 
       - name: Install Linux system deps
         if: runner.os == 'Linux'
