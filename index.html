@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AMTA Companion</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <img src="/icon.png" alt="AMTA Companion" width="72" height="72" />
+        <div>
+          <h1>AMTA Companion</h1>
+          <p class="tagline">Local lexicography engine — the Option&nbsp;C companion for the AMTA&nbsp;Lexicography&nbsp;Assistant add-on.</p>
+        </div>
+      </header>
+
+      <section class="card">
+        <h2>v0.1.0 — Bootstrap (M0)</h2>
+        <p>This first release proves the cross-platform shell and the release pipeline:</p>
+        <ul>
+          <li>✅ Desktop shell builds on Windows (.msi/.exe), macOS (.dmg, universal) and Linux (.AppImage/.deb/.rpm)</li>
+          <li>✅ Tag-driven release pipeline (GitHub Actions) + draft-release QA gate</li>
+          <li>🚧 M1 — LM Studio bridge + OpenAI-compatible local API (tunnel + bearer token)</li>
+          <li>🚧 M2 — Manuscript reader + grounded definitions with source URLs</li>
+          <li>🚧 M3 — Drive-mailbox mode (no tunnel needed)</li>
+          <li>🚧 M4 — OS-level code signing (Apple notarization, Windows Trusted Signing)</li>
+        </ul>
+      </section>
+
+      <section class="card muted">
+        <h2>Using this release</h2>
+        <p>
+          v0.1 is a pipeline-validation release: install it, confirm it opens on your platform,
+          and watch for the auto-updater groundwork landing in v0.2 (M1). Unsigned builds may
+          show a Gatekeeper/SmartScreen notice — see the README for the one-click bypass.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

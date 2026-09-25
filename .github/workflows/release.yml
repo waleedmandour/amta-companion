@@ -1,0 +1,76 @@
+name: Release
+on:
+  push: { tags: ["v*"] }
+permissions: { contents: write }
+
+jobs:
+  publish:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            args: "--target universal-apple-darwin"
+          - os: ubuntu-22.04
+            args: ""
+          - os: windows-latest
+            args: ""
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: pnpm }
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.os == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Install Linux system deps
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev patchelf libfuse2
+
+      # ── M4 (signing) — uncomment when the secrets exist ──────────────────
+      # macOS: Developer ID + notarization
+      # - name: Import Apple certificate + notary profile
+      #   if: runner.os == 'macOS'
+      #   env:
+      #     APPLE_CERTIFICATE_P12_B64: ${{ secrets.APPLE_CERTIFICATE_P12_B64 }}
+      #     APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+      #   run: |
+      #     echo "$APPLE_CERTIFICATE_P12_B64" | base64 --decode > /tmp/cert.p12
+      #     security create-keychain -p pwd build.keychain
+      #     security import /tmp/cert.p12 -k build.keychain -P "$APPLE_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
+      #     security set-key-partition-list -S apple-tool:,apple: -s -k pwd build.keychain
+      #     security default-keychain -s build.keychain
+      #     xcrun notarytool store-credentials AMTA_NOTARY \
+      #       --apple-id "${{ secrets.APPLE_ID }}" \
+      #       --password "${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}" \
+      #       --team-id "${{ secrets.APPLE_TEAM_ID }}"
+      # Windows: add AZURE_* (Trusted Signing) envs to the tauri-action step below.
+      # ─────────────────────────────────────────────────────────────────────
+
+      - name: Build + attach installers to the draft release
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # M1 (auto-updater): add TAURI_SIGNING_PRIVATE_KEY / _PASSWORD secrets
+          # and set bundle.createUpdaterArtifacts: true in tauri.conf.json.
+          # M4 (macOS signing): add APPLE_ID / APPLE_PASSWORD / APPLE_TEAM_ID /
+          #   APPLE_CERTIFICATE / APPLE_CERTIFICATE_PASSWORD envs here.
+          # M4 (Windows signing): add AZURE_CLIENT_ID / AZURE_TENANT_ID /
+          #   AZURE_CLIENT_SECRET / AZURE_SIGNING_ACCOUNT_NAME /
+          #   AZURE_SIGNING_CERT_PROFILE envs here.
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: "AMTA Companion ${{ github.ref_name }}"
+          releaseBody: "Installers for Windows (.msi/.exe), macOS (.dmg, universal Intel+Apple Silicon) and Linux (.AppImage/.deb/.rpm). Unsigned build — see README for the first-launch bypass on macOS/Windows."
+          releaseDraft: true        # QA the draft, then press Publish
+          prerelease: ${{ contains(github.ref_name, '-rc') }}
+          args: ${{ matrix.args }}

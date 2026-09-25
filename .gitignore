@@ -1,0 +1,18 @@
+# Frontend
+node_modules/
+dist/
+
+# Tauri / Rust
+src-tauri/target/
+src-tauri/gen/schemas/
+
+# Secrets & certs — never commit
+*.p12
+*.key
+*.pem
+.env
+.env.*
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
