@@ -54,6 +54,25 @@ with all installers. QA it (see repo plan §9), then press **Publish**.
 git tag v0.1.1 && git push origin v0.1.1
 ```
 
+## Development transparency (AI assistance)
+
+This companion is developed as part of an academic research project. In the
+interest of full transparency, the author acknowledges that the codebase,
+release engineering, and documentation have been developed with the help of
+**agentic AI systems — notably GLM (Z.ai) and Claude (Anthropic)** — operating
+under the author's explicit instructions, review, and verification. All
+architectural decisions, the AMTA methodology, and the published artifacts
+remain the intellectual work and final responsibility of the author.
+
+## Citation
+
+If this companion, the add-on, or the underlying methodology contributes to
+your research, please cite the foundational framework (APA 7th):
+
+> Mandour, W. (2025, December 23). *AI-augmented Method of Triangulation
+> Approach for specialised lexicography*. OSF.
+> <https://doi.org/10.17605/OSF.IO/8QB9V>
+
 ## License
 
 MIT — see [LICENSE](LICENSE). AMTA brand assets are excluded (see NOTICE in LICENSE file).
